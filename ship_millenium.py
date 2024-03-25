@@ -2,7 +2,6 @@ import json
 import requests
 
 
-
 class MillenniumFalcon:
     BASE_URL = "https://swapi.dev/api/starships/"
     STARSHIP_NAME = "Millennium Falcon"
