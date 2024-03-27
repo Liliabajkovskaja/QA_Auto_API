@@ -1,10 +1,16 @@
 import json
 import requests
+import os
+
 
 
 class MillenniumFalcon:
     BASE_URL = "https://swapi.dev/api/starships/"
     STARSHIP_NAME = "Millennium Falcon"
+
+
+    def __init__(self):
+        self.current_directory = os.path.dirname(os.path.abspath(__file__))
 
     def get_starship_data(self, url):
         response = requests.get(url)
@@ -42,7 +48,8 @@ class MillenniumFalcon:
         return millennium_falcon_data
 
     def save_to_json(self, data, file_name):
-        with open(file_name, "w") as json_file:
+        file_path = os.path.join(self.current_directory, file_name)
+        with open(file_path, "w") as json_file:
             json.dump(data, json_file, indent=4)
 
 
