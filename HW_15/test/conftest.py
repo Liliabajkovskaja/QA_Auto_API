@@ -4,27 +4,33 @@ import pytest
 from faker import Faker
 
 from api_service.common.controllers.users_api import UsersAPI
-
+# from api_service import UsersAPI
+#
 faker = Faker()
 user_api = UsersAPI()
 
 
+
 # @pytest.fixture
-# def get_new_user_body():
-#     user_name = faker.name()
-#     first_name = faker.name()
-#     last_name = faker.name()
-#     email = faker.email()
-#     password = faker.password()
-#     phone = faker.phone_number()
-#
-#     return {
-#         "id": 0,
-#         "user_name": user_name,
-#         "first_name": first_name,
-#         "last_name": last_name,
-#         "email": email,
-#         "password": password,
-#         "phone": phone,
-#         "user_status": 0
-#     }
+# def delete_user_fixture(user_api):
+#     yield
+#     if hasattr(delete_user_fixture, 'username'):
+#         user_api.delete_user(username=delete_user_fixture.username)
+#         print(f'user  was deleted')
+
+
+
+
+
+
+created_user = None
+
+@pytest.fixture
+def delete_user_fixture(request):
+    global created_user
+    yield
+    if created_user:
+        username = created_user['username']
+        UsersAPI().delete_user(username)
+        print(f'User {username} was deleted')
+        created_user = None

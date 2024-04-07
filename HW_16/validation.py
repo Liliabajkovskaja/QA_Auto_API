@@ -45,7 +45,7 @@ class CategorySchema(Schema):
 
 class GetPetsSchema(Schema):
     category = fields.Nested(CategorySchema(), default=None)
-    id = fields.Int(required=True)
+    id = fields.Int(strict=True)
     name = fields.String()
     photoUrls = fields.List(fields.String())
     tags = fields.List(fields.Nested(TagSchema()))

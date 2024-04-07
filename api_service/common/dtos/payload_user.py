@@ -19,7 +19,7 @@ class CreateUserPayload:
     @classmethod
     def random(cls, username=None, firstName=None, lastName=None, password=None, email=None, phone=None):
         return cls(
-            id=int((time.time()) % 100000),
+            id=int((time.time()) % 1000000),
             username=username or cls.faker.name(),
             firstName=firstName or cls.faker.name(),
             lastName=lastName or cls.faker.name(),

@@ -28,6 +28,7 @@ class PetsDTO:
     photoUrls: list[str]
     tags: list[TagDTO]
     status: str
+
     def get_dict(self):
         return self.__dict__
 
@@ -39,6 +40,7 @@ class TagSchema(Schema):
     @post_load
     def serialize(self, data, **kwarg):
         return TagDTO(**data)
+
 
 class CategorySchema(Schema):
     id = fields.Int(strict=True)
@@ -60,4 +62,3 @@ class GetPetsSchema(Schema):
     @post_load
     def get_object(self, data, **kwargs):
         return PetsDTO(**data)
-
