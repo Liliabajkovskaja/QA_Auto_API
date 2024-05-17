@@ -3,7 +3,7 @@ from assertpy import assert_that
 
 from core.assertations.db_users_asserts import assert_one_car
 from core.db_base.sqlite_car_logistics_table import SqliteCarLogisticsTable
-from test.db_tests.conftest import create_delete_car
+from test_db.conftest import create_delete_car
 import allure
 
 
