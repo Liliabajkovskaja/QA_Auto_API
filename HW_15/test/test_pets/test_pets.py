@@ -1,8 +1,10 @@
 import json
-from HW_15.test.conftest import user_api, faker
 
 import logging
 
+import pytest
+
+from HW_15.test.conftest import faker
 from api_service.common.assertation.user_asserts import UserAsserts
 from api_service.common.controllers import pet_api
 from api_service.common.dtos.payload_pet import PetPayload
@@ -15,12 +17,13 @@ logger = logging.getLogger(__file__)
 pet_api = PetsAPI()
 
 
+@pytest.mark.smoke
 def test_add_pet():
     payload = PetPayload.random_pet().get_dict()
     pet_api.add_pet(body=json.dumps(payload, indent=4),
                     headers={"Content-Type": "application/json", "accept": "application/json"})
 
-
+@pytest.mark.smoke
 def test_find_pet_by_id():
     payload = PetPayload.random_pet().get_dict()
     id = payload['id']

@@ -1,6 +1,8 @@
 import json
 import logging
 
+import pytest
+
 from api_service.common.controllers import store_api
 from api_service.common.controllers.store_api import StoreAPI
 from api_service.common.dtos.payload_store import StorePayload
@@ -9,7 +11,7 @@ logger = logging.getLogger(__file__)
 
 store_api = StoreAPI()
 
-
+@pytest.mark.smoke
 def test_add_order():
     payload = StorePayload.random_order().get_dict()
     res = store_api.add_order(body=json.dumps(payload, indent=4),
@@ -26,7 +28,7 @@ def test_find_order_by_id():
                                    headers={"accept": "application/json"})
     assert payload['id'] == find_res['id']
 
-
+@pytest.mark.smoke
 def test_delete_order_by_id():
     payload = StorePayload.random_order().get_dict()
     id = payload['id']

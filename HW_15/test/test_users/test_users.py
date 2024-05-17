@@ -1,31 +1,29 @@
 import json
 import time
 
+import pytest
+
 from HW_15.test.conftest import user_api
 from api_service.common.controllers.users_api import UsersAPI
 from api_service.common.dtos.payload_user import CreateUserPayload
 
 
-# def test_create_user(delete_user_fixture):
-#     payload = CreateUserPayload.random().get_dict()
-#     user_id = payload['id']
-#     username = payload["username"]
-#     response = user_api.create_user(body=json.dumps(payload, indent=4),
-#                                     headers={"Content-Type": "application/json", "accept": "application/json",
-#                                              "User-Agent": "PostmanRuntime/7.37.0"})
-#
-#     assert response["message"] == str(user_id)
-#     # user_api.delete_user(username=username)
-def test_create_user(delete_user_fixture):
-    global created_user
+
+
+
+@pytest.mark.smoke
+def test_create_user():
+
     payload = CreateUserPayload.random().get_dict()
     response = UsersAPI().create_user(body=json.dumps(payload, indent=4),
                                       headers={"Content-Type": "application/json", "accept": "application/json",
                                                "User-Agent": "PostmanRuntime/7.37.0"})
+    global created_user
+
     assert response["message"] == str(payload["id"])
     created_user = payload
 
-
+@pytest.mark.smoke
 def test_delete_user():
     payload = CreateUserPayload.random().get_dict()
     username = payload["username"]
@@ -36,7 +34,7 @@ def test_delete_user():
     assert response["message"] == username
 
 
-def test_update_user(delete_user_fixture):
+def test_update_user():
     payload_create = CreateUserPayload.random().get_dict()
     user_api.create_user(body=json.dumps(payload_create, indent=4),
                          headers={"Content-Type": "application/json", "accept": "application/json",
@@ -50,7 +48,7 @@ def test_update_user(delete_user_fixture):
     user_api.delete_user(username=username)
 
 
-def test_get_user_by_user_name(delete_user_fixture):
+def test_get_user_by_user_name():
     payload = CreateUserPayload.random().get_dict()
     json_data = json.dumps(payload, indent=4)
     time.sleep(1)
@@ -60,11 +58,11 @@ def test_get_user_by_user_name(delete_user_fixture):
     assert payload == response.get_dict()
     user_api.delete_user(username=username)
 
-
+@pytest.mark.smoke
 def test_login_user():
     user_api.login()
 
-
+@pytest.mark.smoke
 def test_logout_user():
     user_api.login()
     user_api.logout()
