@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'dev', url: 'https://github.com/your-repo/your-project.git'
+                git branch: 'dev', url: 'https://github.com/Liliabajkovskaja/QA_Auto_API.git'
             }
         }
         stage('Setup Python Environment') {
